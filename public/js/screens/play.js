@@ -94,7 +94,10 @@ game.PlayScreen = me.ScreenObject.extend({
         }
 
         if (!restart)
-            me.game.HUD.updateItemValue("moves", Math.floor(puzzle / 3) + 3);
+            me.game.HUD.updateItemValue(
+                "moves",
+                (Math.floor(puzzle / 3) % 6) + 3
+            );
     },
 
     "puzzles" : [
