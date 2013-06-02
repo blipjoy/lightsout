@@ -18,6 +18,10 @@ game.Restart = me.Renderable.extend({
         this.font.textBaseline = "middle";
 
         me.input.registerPointerEvent("mousedown", this, function (e) {
+            me.game.HUD.updateItemValue(
+                "moves",
+                -(Math.floor(game.playscreen.puzzle / 3) + 3)
+            );
             game.playscreen.loadPuzzle(game.playscreen.puzzle);
         });
     },
@@ -86,7 +90,10 @@ game.PlayScreen = me.ScreenObject.extend({
         var lights = this.puzzles[puzzle];
         for (var y = 0; y < 5; y++) {
             for (var x = 0; x < 5; x++) {
-                game.lights[y][x].setState(lights[y][x]);
+                game.lights[y][x].setState(
+                    lights[y][x],
+                    Math.floor(puzzle / 18) + 2
+                );
             }
         }
 
@@ -230,6 +237,52 @@ game.PlayScreen = me.ScreenObject.extend({
             [ 1, 1, 0, 1, 1 ],
             [ 0, 1, 0, 1, 0 ],
             [ 1, 1, 1, 1, 0 ]
+        ],
+
+        /* Three moves, tri-state */
+        [
+            [ 0, 1, 0, 0, 0 ],
+            [ 1, 1, 1, 0, 0 ],
+            [ 0, 1, 0, 2, 0 ],
+            [ 0, 0, 2, 2, 2 ],
+            [ 0, 0, 0, 2, 0 ]
+        ],
+        [
+            [ 0, 0, 0, 0, 0 ],
+            [ 0, 2, 1, 0, 0 ],
+            [ 2, 0, 0, 1, 0 ],
+            [ 0, 2, 1, 0, 0 ],
+            [ 0, 0, 0, 0, 0 ]
+        ],
+        [
+            [ 0, 0, 0, 0, 0 ],
+            [ 0, 2, 2, 0, 0 ],
+            [ 2, 1, 1, 1, 0 ],
+            [ 0, 2, 1, 2, 2 ],
+            [ 0, 0, 0, 2, 0 ]
+        ],
+
+        /* Four moves, tri-state */
+        [
+            [ 1, 1, 2, 1, 0 ],
+            [ 1, 2, 1, 2, 2 ],
+            [ 2, 0, 0, 2, 0 ],
+            [ 0, 0, 0, 0, 0 ],
+            [ 0, 0, 0, 0, 0 ]
+        ],
+        [
+            [ 0, 2, 0, 0, 0 ],
+            [ 2, 2, 2, 0, 0 ],
+            [ 0, 1, 0, 0, 0 ],
+            [ 0, 2, 2, 0, 0 ],
+            [ 1, 0, 0, 0, 0 ]
+        ],
+        [
+            [ 0, 0, 2, 0, 0 ],
+            [ 0, 1, 2, 1, 0 ],
+            [ 2, 2, 0, 2, 2 ],
+            [ 0, 2, 2, 2, 0 ],
+            [ 0, 2, 2, 2, 0 ]
         ]
     ]
 });

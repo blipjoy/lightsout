@@ -5,11 +5,12 @@ game.Light = me.SpriteObject.extend({
 
         this.regions = [
             game.texture.getRegion("off.png"),
-            game.texture.getRegion("on.png")
+            game.texture.getRegion("on.png"),
+            game.texture.getRegion("on2.png")
         ];
 
         this.parent(x * 64, y * 64, game.texture.getTexture(), 64, 64);
-        this.setState(0);
+        this.setState(0, 2);
 
         me.input.registerPointerEvent("mousedown", this, (function (e) {
             // Decrease moves counter
@@ -35,13 +36,14 @@ game.Light = me.SpriteObject.extend({
         me.input.releasePointerEvent("mousedown", this);
     },
 
-    "setState" : function (state) {
+    "setState" : function (state, states) {
         this.state = state;
+        this.states = states;
         this.setRegion();
     },
 
     "toggle" : function () {
-        this.state ^= 1;
+        this.state = (this.state + 1) % this.states;
         this.setRegion();
     },
 
