@@ -18,11 +18,7 @@ game.Restart = me.Renderable.extend({
         this.font.textBaseline = "middle";
 
         me.input.registerPointerEvent("mousedown", this, function (e) {
-            me.game.HUD.updateItemValue(
-                "moves",
-                -(Math.floor(game.playscreen.puzzle / 3) + 3)
-            );
-            game.playscreen.loadPuzzle(game.playscreen.puzzle);
+            game.playscreen.loadPuzzle(game.playscreen.puzzle, true);
         });
     },
 
@@ -86,7 +82,7 @@ game.PlayScreen = me.ScreenObject.extend({
         }
     },
 
-    "loadPuzzle" : function (puzzle) {
+    "loadPuzzle" : function (puzzle, restart) {
         var lights = this.puzzles[puzzle];
         for (var y = 0; y < 5; y++) {
             for (var x = 0; x < 5; x++) {
@@ -97,7 +93,8 @@ game.PlayScreen = me.ScreenObject.extend({
             }
         }
 
-        me.game.HUD.updateItemValue("moves", Math.floor(puzzle / 3) + 3);
+        if (!restart)
+            me.game.HUD.updateItemValue("moves", Math.floor(puzzle / 3) + 3);
     },
 
     "puzzles" : [
